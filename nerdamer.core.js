@@ -6952,11 +6952,11 @@ var nerdamer = (function (imports) {
                                     }
                                 }
                                 vars.sort();
-                                dx = vars.length > 0 ? ('\\frac{d}{d ' + vars[0] + '}') : '\\frac{d}{d x}';
+                                dx = vars.length > 0 ? ('\\dfrac{d}{d ' + vars[0] + '}') : '\\dfrac{d}{d x}';
                             }
                             /* If two arguments, we have expression and variable, we assume n = 1 */
                             else if (chunks.length === 2) {
-                                dx = '\\frac{d}{d ' + chunks[1] + '}';
+                                dx = '\\dfrac{d}{d ' + chunks[1] + '}';
                             }
                             /* If we have more than 2 arguments, we assume we've got everything */
                             else {
@@ -10330,7 +10330,7 @@ var nerdamer = (function (imports) {
             return this.frac(n, d);
         },
         frac: function (n, d) {
-            return '\\frac' + this.braces(n) + this.braces(d);
+            return '\\dfrac' + this.braces(n) + this.braces(d);
         },
         braces: function (e) {
             return '{' + e + '}';
@@ -10396,7 +10396,7 @@ var nerdamer = (function (imports) {
             for (i = 0, l = tokens.length; i < l; i++) {
                 var token = tokens[i];
                 // fractions
-                if (token.value === 'frac') {
+                if (token.value === 'dfrac') {
                     // parse and wrap it in brackets
                     var n = parse_next();
                     var d = parse_next();
