@@ -655,14 +655,16 @@ if((typeof module) !== 'undefined' && typeof nerdamer === 'undefined') {
                     symbol = _.multiply(polydiff(symbol.clone()), derive(b));  
                 }
                 else if( g === CP || g === PL ) { 
+                    var c = _.parse(symbol);
                     var result = new Symbol(0);
                     for(var x in symbol.symbols) {
                         result = _.add(result, __.diff(symbol.symbols[x].clone(), d));
                     }
-                    symbol = _.multiply(polydiff(symbol.clone()), result);
+                    symbol = _.multiply(polydiff(c), result);
                 }
 
                 symbol.updateHash();
+                
                 return symbol;
             };
 
@@ -2079,8 +2081,11 @@ if((typeof module) !== 'undefined' && typeof nerdamer === 'undefined') {
             var vars = core.Utils.variables(symbol),
                 hasTrig = symbol.hasTrig();
             var retval, integral;
-            if(vars.length === 1)
+            
+            // Fix #593 - Only assume the first variable if dx is not defined.
+            if(vars.length === 1 && !dx)
                 dx = vars[0];
+            
             if(!hasTrig) {
                 integral = __.integrate(symbol, dx);
             }
